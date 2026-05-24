@@ -1,6 +1,8 @@
 type Props = {
   city: string
+  item: string
   onCityChange: (c: string) => void
+  onItemChange: (i: string) => void
   onQuickAction: (q: string) => void
   onReset: () => void
   connected: boolean
@@ -12,16 +14,33 @@ const CITIES = [
   { name: 'Delhi',     code: 'DEL' },
 ]
 
-const QUICK_ACTIONS = [
-  'How much Biryani to order for Hyderabad next week?',
-  'Compare Dosa demand across all 3 cities',
-  'Swiggy vs Zomato split for Burger in Delhi?',
-  'Forecast North Indian Thali in Bangalore (14 days)',
+const ITEMS = [
+  { name: 'Biryani',   emoji: '🍚' },
+  { name: 'Dosa',      emoji: '🥞' },
+  { name: 'Haleem',    emoji: '🍲' },
+  { name: 'North Indian Thali', emoji: '🍛' },
+  { name: 'Fried Rice', emoji: '🍜' },
+  { name: 'Burger',    emoji: '🍔' },
+  { name: 'Pizza',     emoji: '🍕' },
+  { name: 'Idli',      emoji: '🫓' },
+  { name: 'Rolls',     emoji: '🌯' },
+  { name: 'Pasta',     emoji: '🍝' },
 ]
 
-export default function Sidebar({ city, onCityChange, onQuickAction, onReset, connected }: Props) {
+const QUICK_ACTIONS = [
+  'How much {item} to order for {city} next week?',
+  'Compare {item} demand across all 3 cities',
+  'Swiggy vs Zomato split for {item} in {city}?',
+  'Full procurement list for {city} (7 days)',
+]
+
+export default function Sidebar({ city, item, onCityChange, onItemChange, onQuickAction, onReset, connected }: Props) {
+  function fillTemplate(q: string) {
+    return q.replace(/\{city\}/g, city).replace(/\{item\}/g, item)
+  }
+
   return (
-    <aside className="w-60 min-w-[240px] bg-surface border-r border-border flex flex-col p-4 gap-6 overflow-y-auto">
+    <aside className="w-60 min-w-[240px] bg-surface border-r border-border flex flex-col p-4 gap-5 overflow-y-auto">
       {/* Logo */}
       <div className="flex items-center gap-2.5 font-bold text-sm tracking-tight">
         <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base"
@@ -57,17 +76,37 @@ export default function Sidebar({ city, onCityChange, onQuickAction, onReset, co
         </div>
       </div>
 
+      {/* Items */}
+      <div>
+        <p className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2">Item</p>
+        <div className="flex flex-wrap gap-1">
+          {ITEMS.map(i => (
+            <button
+              key={i.name}
+              onClick={() => onItemChange(i.name)}
+              className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-[11px] font-medium border transition-all
+                ${item === i.name
+                  ? 'bg-tomato/10 border-tomato/30 text-tomato'
+                  : 'border-border hover:bg-surface2 text-muted hover:text-[#e2f0ee]'}`}
+            >
+              <span>{i.emoji}</span>
+              <span>{i.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Quick actions */}
       <div className="flex-1">
         <p className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2">Quick Actions</p>
         <div className="flex flex-col gap-1">
-          {QUICK_ACTIONS.map(q => (
+          {QUICK_ACTIONS.map((q, idx) => (
             <button
-              key={q}
-              onClick={() => onQuickAction(q)}
+              key={idx}
+              onClick={() => onQuickAction(fillTemplate(q))}
               className="text-left text-[12px] text-muted leading-snug px-3 py-2 rounded-lg bg-surface2 border border-border hover:border-teal hover:text-[#e2f0ee] hover:bg-teal/5 transition-all"
             >
-              {q}
+              {fillTemplate(q)}
             </button>
           ))}
         </div>

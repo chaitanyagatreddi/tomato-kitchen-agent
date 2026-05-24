@@ -10,17 +10,24 @@ const CITIES = ['Bangalore', 'Hyderabad', 'Delhi']
 
 export default function App() {
   const [city, setCity] = useState('Hyderabad')
+  const [item, setItem] = useState('Biryani')
   const { messages, send, reset, connected } = useAgent()
 
   function handleQuickAction(q: string) {
     send(q)
   }
 
+  function handleItemChange(i: string) {
+    setItem(i)
+  }
+
   return (
     <div className="flex h-screen overflow-hidden bg-bg text-[#e2f0ee]">
       <Sidebar
         city={city}
+        item={item}
         onCityChange={setCity}
+        onItemChange={handleItemChange}
         onQuickAction={handleQuickAction}
         onReset={reset}
         connected={connected}

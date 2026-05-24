@@ -14,7 +14,7 @@ export function useAgent() {
     {
       id: 'intro',
       role: 'agent',
-      content: "Hi! I'm your cloud kitchen demand planner. Ask me about forecast demand, order quantities, or channel splits across **Bangalore**, **Hyderabad**, and **Delhi**.\n\nTry: *\"How much Biryani should I order for Hyderabad next week?\"*",
+      content: "Hi! I'm your cloud kitchen demand planner.\n\n**Step 1:** Pick a **city** and **item** from the sidebar\n**Step 2:** Ask about forecast demand, order quantities, procurement, or channel splits\n\nTry: *\"How much Biryani should I order for Hyderabad next week?\"*\n\nI'll show you **portions** (1 portion = 1 customer order) and break it down into **raw ingredients** for procurement.",
     },
   ])
   const [connected, setConnected] = useState(false)
@@ -69,7 +69,7 @@ export function useAgent() {
     setMessages([{
       id: 'intro',
       role: 'agent',
-      content: "Hi! I'm your cloud kitchen demand planner. Ask me about forecast demand, order quantities, or channel splits across **Bangalore**, **Hyderabad**, and **Delhi**.",
+      content: "Hi! I'm your cloud kitchen demand planner.\n\n**Step 1:** Pick a **city** and **item** from the sidebar\n**Step 2:** Ask about forecast demand, order quantities, procurement, or channel splits",
     }])
   }, [])
 
