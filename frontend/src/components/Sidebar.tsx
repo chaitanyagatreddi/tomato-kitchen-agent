@@ -14,18 +14,18 @@ const CITIES = [
   { name: 'Delhi',     code: 'DEL' },
 ]
 
-const ITEMS = [
-  { name: 'Biryani',   emoji: '🍚' },
-  { name: 'Dosa',      emoji: '🥞' },
-  { name: 'Haleem',    emoji: '🍲' },
-  { name: 'North Indian Thali', emoji: '🍛' },
-  { name: 'Fried Rice', emoji: '🍜' },
-  { name: 'Burger',    emoji: '🍔' },
-  { name: 'Pizza',     emoji: '🍕' },
-  { name: 'Idli',      emoji: '🫓' },
-  { name: 'Rolls',     emoji: '🌯' },
-  { name: 'Pasta',     emoji: '🍝' },
-]
+const ITEM_EMOJI: Record<string, string> = {
+  'Biryani': '🍚', 'Dosa': '🥞', 'Haleem': '🍲',
+  'North Indian Thali': '🍛', 'Fried Rice': '🍜', 'Burger': '🍔',
+  'Pizza': '🍕', 'Idli': '🫓', 'Rolls': '🌯', 'Pasta': '🍝',
+}
+
+// City-specific menus sorted by popularity
+const CITY_ITEMS: Record<string, string[]> = {
+  'Bangalore': ['Dosa', 'Biryani', 'North Indian Thali', 'Idli', 'Fried Rice', 'Burger', 'Pizza'],
+  'Hyderabad': ['Biryani', 'Haleem', 'Dosa', 'North Indian Thali', 'Fried Rice', 'Burger', 'Rolls'],
+  'Delhi':     ['North Indian Thali', 'Biryani', 'Rolls', 'Burger', 'Pizza', 'Fried Rice', 'Dosa'],
+}
 
 const QUICK_ACTIONS = [
   'How much {item} to order for {city} next week?',
@@ -76,21 +76,21 @@ export default function Sidebar({ city, item, onCityChange, onItemChange, onQuic
         </div>
       </div>
 
-      {/* Items */}
+      {/* Items — city-specific menu */}
       <div>
-        <p className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2">Item</p>
+        <p className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2">Menu — {city}</p>
         <div className="flex flex-wrap gap-1">
-          {ITEMS.map(i => (
+          {(CITY_ITEMS[city] || []).map(name => (
             <button
-              key={i.name}
-              onClick={() => onItemChange(i.name)}
+              key={name}
+              onClick={() => onItemChange(name)}
               className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-[11px] font-medium border transition-all
-                ${item === i.name
+                ${item === name
                   ? 'bg-tomato/10 border-tomato/30 text-tomato'
                   : 'border-border hover:bg-surface2 text-muted hover:text-[#e2f0ee]'}`}
             >
-              <span>{i.emoji}</span>
-              <span>{i.name}</span>
+              <span>{ITEM_EMOJI[name] || '🍽️'}</span>
+              <span>{name}</span>
             </button>
           ))}
         </div>

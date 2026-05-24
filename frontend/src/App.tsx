@@ -8,10 +8,21 @@ import { useAgent } from './hooks/useAgent'
 
 const CITIES = ['Bangalore', 'Hyderabad', 'Delhi']
 
+const CITY_TOP_ITEM: Record<string, string> = {
+  'Bangalore': 'Dosa',
+  'Hyderabad': 'Biryani',
+  'Delhi': 'North Indian Thali',
+}
+
 export default function App() {
   const [city, setCity] = useState('Hyderabad')
   const [item, setItem] = useState('Biryani')
   const { messages, send, reset, connected } = useAgent()
+
+  function handleCityChange(c: string) {
+    setCity(c)
+    setItem(CITY_TOP_ITEM[c] || 'Biryani')
+  }
 
   function handleQuickAction(q: string) {
     send(q)
@@ -26,7 +37,7 @@ export default function App() {
       <Sidebar
         city={city}
         item={item}
-        onCityChange={setCity}
+        onCityChange={handleCityChange}
         onItemChange={handleItemChange}
         onQuickAction={handleQuickAction}
         onReset={reset}
@@ -41,7 +52,7 @@ export default function App() {
             {CITIES.map(c => (
               <span
                 key={c}
-                onClick={() => setCity(c)}
+                onClick={() => handleCityChange(c)}
                 className={`text-[11px] font-semibold px-2 py-1 rounded border cursor-pointer transition-all
                   ${city === c
                     ? 'text-teal border-teal/40 bg-teal/10'
