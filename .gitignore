@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+*.pyg
+.venv/
+venv/
+data/orders.csv
+frontend/node_modules/
+backend/static/
