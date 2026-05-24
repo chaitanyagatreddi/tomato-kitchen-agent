@@ -12,7 +12,7 @@ pinned: false
 
 A supply and demand forecasting agent for cloud kitchens across **Bangalore, Hyderabad, and Delhi** — powered by a LangGraph ReAct agent, Prophet time-series forecasting, and a React dashboard.
 
-[![Hugging Face Space](https://img.shields.io/badge/🤗%20HF%20Space-live-teal)](https://huggingface.co/spaces/YOUR_HF_USERNAME/tomato-kitchen-agent)
+[![Hugging Face Space](https://img.shields.io/badge/🤗%20HF%20Space-live-teal)](https://huggingface.co/spaces/chaitubatman/cloudkitchen)
 
 ## What it does
 
@@ -37,7 +37,7 @@ A supply and demand forecasting agent for cloud kitchens across **Bangalore, Hyd
 
 ```bash
 # 1. Clone
-git clone https://github.com/YOUR_USERNAME/tomato-kitchen-agent
+git clone https://github.com/chaitanyagatreddi/tomato-kitchen-agent
 cd tomato-kitchen-agent
 
 # 2. Python deps
